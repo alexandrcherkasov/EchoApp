@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="EchoApplication.View.ProjectWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EchoApplication.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ProjectCollection}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutoGenerateColumns="False" ColumnWidth="*" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" SelectedItem="{Binding SelectedProjectItem}">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=Name}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeader">
+                                        <Border Margin="5" BorderBrush="LightGray" BorderThickness="1" CornerRadius="1" Background="WhiteSmoke">
+                                            <TextBlock Text="Наименование проекта" HorizontalAlignment="Stretch"  VerticalAlignment="Center" TextAlignment="Center" Foreground="SlateGray"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                                <Border Margin="5" BorderBrush="LightGray" BorderThickness="1" CornerRadius="1" Background="WhiteSmoke">
+                                                    <TextBlock Text="Наименование проекта" HorizontalAlignment="Stretch"  VerticalAlignment="Center" TextAlignment="Center" Foreground="Black"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Настройка">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeader">
+                                        <Border Margin="5" BorderBrush="LightGray" BorderThickness="1" CornerRadius="1" Background="WhiteSmoke">
+                                            <TextBlock Text="Настройка" HorizontalAlignment="Stretch"  VerticalAlignment="Center" TextAlignment="Center" Foreground="Black"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Button Margin="5" Content="Отрисовка" Command="{Binding RelativeSource={RelativeSource AncestorType = DataGrid}, Path = DataContext.DrawButton}"  Background="#FF3A56B7"/>
+                                <Button Margin="5" Content="Экспортировать" Command="{Binding RelativeSource={RelativeSource AncestorType = DataGrid}, Path = DataContext.ExportProjectButton}"  Background="#FF3A56B7"/>
+                                <Button Margin="5" Content="Изменить" Command="{Binding RelativeSource={RelativeSource AncestorType = DataGrid}, Path = DataContext.EditProjectButton}"  Background="#FF3A56B7"/>
+                                <Button Margin="5" Content="Удалить" Command="{Binding RelativeSource={RelativeSource AncestorType = DataGrid}, Path = DataContext.DeleteProjectButton}" Background="#FFF12F1B"/>
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid ItemsSource="{Binding BoreHoleCollection}" AutoGenerateColumns="False" ColumnWidth="*" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              SelectedItem="{Binding SelectedBoreHoleData,UpdateSourceTrigger=PropertyChanged}"
+                              PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
+                               local:FixScrollingBehaviorOn.ParentDataGrid="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"
+                Template="{DynamicResource TemplateDataGridPrintAndExport}" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Скважина" IsReadOnly="True"  Binding="{Binding BoreHoleName}"/>
+                            <DataGridTemplateColumn Header="Настройка">
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <Button Margin="5" Content="Изменить" Command="{Binding RelativeSource={RelativeSource AncestorType = DataGrid}, Path = DataContext.EditBoreHoleParamsButton}"  Background="#FF3A56B7"/>
+                                            <Button Margin="5" Content="Удалить"  Background="#FFF12F1B"/>
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <DataGrid AutoGenerateColumns="False"  ColumnWidth="*" ItemsSource="{Binding ProjectDataCollection}" SelectedItem="{Binding SelectedProjectData,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Время замера" Binding="{Binding MeasureTime}"/>
+                                        <DataGridTextColumn Header="Время отклика" Binding="{Binding ResponseTime}"/>
+                                        <DataGridTextColumn Header="Скорость звука" Binding="{Binding SpeedOfSound}"/>
+                                        <DataGridTextColumn Header="Дистанция (m)" Binding="{Binding Distance}"/>
+                                        <DataGridTemplateColumn Header="Настройка">
+                                            <DataGridTemplateColumn.HeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader">
+                                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                </Style>
+                                            </DataGridTemplateColumn.HeaderStyle>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal" Margin="5">
+                                                        <Button Margin="5" Content="Изменить" Command="{Binding RelativeSource={RelativeSource AncestorType = DataGrid}, Path = DataContext.EditProjectDataButton}" Background="#FF3A56B7"/>
+                                                        <Button Margin="5" Content="Удалить" Command="{Binding RelativeSource={RelativeSource AncestorType = DataGrid}, Path = DataContext.DeleteProjectDataButton}" Background="#FFF12F1B"/>
+                                                    </StackPanel>
+
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+
+    </Grid>
+</UserControl>

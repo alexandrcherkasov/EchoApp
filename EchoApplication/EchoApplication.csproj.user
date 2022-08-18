@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ModalWindow\View\CalculationWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ModalWindow\View\CreateProjectWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ModalWindow\View\EditBoreHoleParamsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ModalWindow\View\EditProjectWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ProjectElementWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ProjectWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ModalWindow\View\CalculationWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ModalWindow\View\CreateProjectWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ModalWindow\View\EditBoreHoleParamsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ModalWindow\View\EditProjectWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Style\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Style\Label.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Style\StyleButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Style\StyleTextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ProjectElementWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ProjectWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

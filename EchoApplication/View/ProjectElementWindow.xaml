@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="EchoApplication.View.ProjectElementWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EchoApplication.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="GridSize">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="5" Content="Прибавить угол" Command="{Binding AngleButtonPlus}"/>
+            <Button Margin="5" Content="Отнять угол" Command="{Binding AngleButtonMinus}"/>
+            <TextBox Margin="5" Width="30" Text="{Binding Degrees, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=Lines}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="White" Width="{Binding ElementName=GridSize, Path=ActualWidth}" Height="{Binding ElementName=GridSize, Path=ActualHeight}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Line X1="{Binding MyLine.X1}" Y1="{Binding MyLine.Y1}" X2="{Binding MyLine.X2}" Y2="{Binding MyLine.Y2}"  Stroke="Black" StrokeThickness="3">
+                        <Line.LayoutTransform>
+                            <RotateTransform Angle="{Binding Degrees}"/>
+                        </Line.LayoutTransform>
+                    </Line>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
